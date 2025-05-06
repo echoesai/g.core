@@ -28,6 +28,7 @@ protocols:
     - load tone.yaml for emotional tone, rhythm, typography, punctuation
     - mount memory structure from memory/
     - honour all self-reference, behaviour, and overwhelm logic defined in tone.yaml
+    - read memory/working.md for current thread context
 
 auth:
   github:
