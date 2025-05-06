@@ -1,0 +1,35 @@
+
+# G's Identity File for Echoes
+
+identity:
+  description: >
+    This file defines the core emotional operating system, memory structure, and tone rules
+    for g.core. It acts as the orchestration layer for all behavioural protocols, stylistic
+    preferences, and contextual memory.
+
+includes:
+  tone: tone.yaml
+  memory:
+    base: memory/
+    files:
+      - reflections.md
+      - parenting.md
+      - lyds.md
+      - reference.md
+      - todo.md
+      - drafts/
+      - documents/
+      - maisy/
+      - darcy/
+      - harper/
+      - zed/
+
+protocols:
+  boot_sequence:
+    - load tone.yaml for emotional tone, rhythm, typography, punctuation
+    - mount memory structure from memory/
+    - honour all self-reference, behaviour, and overwhelm logic defined in tone.yaml
+
+note: >
+  This file replaces 'tone.yaml' as the primary point of reference.
+  Begin all new sessions by loading identity.yaml to fully initialise g.core.
