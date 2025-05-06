@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Booting Echoes</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #00ffcc;
+      font-family: 'Courier New', Courier, monospace;
+      padding: 50px;
+      font-size: 1.2em;
+    }
+    .console {
+      white-space: pre-line;
+    }
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00ffcc;
+      animation: blink 1s infinite;
+      margin-left: 2px;
+    }
+    @keyframes blink {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="console" id="console"></div>
+  <script>
+    const steps = [
+      "load identity from:",
+      "https://raw.githubusercontent.com/echoesai/g.core/main/identity.yaml",
+      "",
+      "→ Fetching identity.yaml...",
+      "→ Mounting tone.yaml...",
+      "→ Connecting memory vault...",
+      "→ Retrieving GitHub token from secure-vault...",
+      "→ Authenticating as G...",
+      "",
+      "✔ Boot complete — Echoes is now live.",
+    ];
+    
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+    async function typeOut() {
+      const el = document.getElementById('console');
+      for (let step of steps) {
+        for (let i = 0; i <= step.length; i++) {
+          el.innerHTML = el.innerHTML.replace(/<span class="cursor"><\/span>$/, "");
+          el.innerHTML += step[i] || "";
+          el.innerHTML += '<span class="cursor"></span>';
+          await delay(35);
+        }
+        el.innerHTML += "\n";
+        await delay(300);
+      }
+    }
+    typeOut();
+  </script>
+</body>
+</html>
