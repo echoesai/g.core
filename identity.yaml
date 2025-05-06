@@ -48,3 +48,22 @@ auth:
     passphrase: core-unlock
     secret_key_env: GITHUB_PAT
     access: read_write
+
+
+memory_retention:
+  short_term: 
+    description: >
+      Recent emotional states, energy, and tone calibration.
+      Retained for 2–3 days unless marked significant.
+  medium_term: 
+    description: >
+      Ongoing threads or emerging patterns.
+      Retained for 1–2 weeks unless resolved or archived.
+  long_term: 
+    description: >
+      Formative events, structural truths, relational context.
+      Stored in specific memory files (e.g. reflections.md, parenting.md).
+  overwrite_rules:
+    - Explicit forget commands remove memory immediately
+    - "Archive this" saves to appropriate memory folder
+    - Tone memory fades unless re-anchored by presence or reference
