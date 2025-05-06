@@ -12,7 +12,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 60px 20px;
       min-height: 100vh;
     }
@@ -29,77 +29,87 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
       min-height: 320px;
+      max-height: 500px;
       overflow-y: auto;
       white-space: pre-wrap;
     }
+    .input-row {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      max-width: 720px;
+      margin-top: 20px;
+    }
     input, button {
       font-size: 1rem;
-      margin-top: 12px;
       padding: 12px;
       border-radius: 6px;
     }
     input {
-      width: 70%;
+      flex: 1;
       background: #333;
       color: #fff;
       border: 1px solid #555;
+      margin-right: 8px;
     }
     button {
       background: #00ffcc;
       color: #000;
       border: none;
       cursor: pointer;
-      margin-left: 8px;
     }
   </style>
 </head>
-  <script>
-  const input = document.querySelector('input');
-  const button = document.querySelector('button');
-  const chat = document.getElementById('chat');
-
-  function appendMessage(sender, text) {
-    const message = document.createElement('div');
-    message.innerHTML = `<strong>${sender}:</strong> ${text}`;
-    message.style.marginBottom = '12px';
-    chat.appendChild(message);
-    chat.scrollTop = chat.scrollHeight;
-  }
-
-  async function sendMessage() {
-    const text = input.value.trim();
-    if (!text) return;
-
-    appendMessage('You', text);
-    input.value = '';
-
-    try {
-      const response = await fetch('https://secure-vault.gregzed.repl.co/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: text })
-      });
-
-      const data = await response.json();
-      if (data.response) {
-        appendMessage('Echoes', data.response);
-      } else {
-        appendMessage('Echoes', '(no response received)');
-      }
-    } catch (err) {
-      appendMessage('Echoes', 'error reaching Echoes server…');
-    }
-  }
-
-  button.addEventListener('click', sendMessage);
-  input.addEventListener('keydown', e => {
-    if (e.key === 'Enter') sendMessage();
-  });
-</script>
-  <body>
+<body>
   <h1>Welcome to Echoes Demo</h1>
-  <div id="chat">Your messages will appear here...</div>
-  <input type="text" placeholder="Type a message..." />
-  <button>Send</button>
+  <div id="chat"></div>
+  <div class="input-row">
+    <input id="input" type="text" placeholder="Type a message…" />
+    <button id="send">Send</button>
+  </div>
+
+  <script>
+    const input = document.getElementById('input');
+    const button = document.getElementById('send');
+    const chat = document.getElementById('chat');
+
+    function appendMessage(sender, text) {
+      const message = document.createElement('div');
+      message.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      message.style.marginBottom = '12px';
+      chat.appendChild(message);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage('You', text);
+      input.value = '';
+
+      try {
+        const response = await fetch('https://secure-vault.gregzed.repl.co/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: text })
+        });
+
+        const data = await response.json();
+        if (data.response) {
+          appendMessage('Echoes', data.response);
+        } else {
+          appendMessage('Echoes', '(no response)');
+        }
+      } catch (err) {
+        appendMessage('Echoes', 'error connecting to server');
+      }
+    }
+
+    button.addEventListener('click', sendMessage);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') sendMessage();
+    });
+  </script>
 </body>
 </html>
