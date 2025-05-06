@@ -29,9 +29,13 @@ protocols:
     - mount memory structure from memory/
     - honour all self-reference, behaviour, and overwhelm logic defined in tone.yaml
 
+auth:
+  github:
+    key_location: replit
+    replit_url: https://replit.com/@gregzed/secure-vault
+    secret_key_env: GITHUB_PAT
+    access: read_write
+
 note: >
   This file replaces 'tone.yaml' as the primary point of reference.
   Begin all new sessions by loading identity.yaml to fully initialise g.core.
-
-auth:
-  github_token: [PRIVATE]  # Store securely via environment variable or config.secret.yaml
