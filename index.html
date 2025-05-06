@@ -53,7 +53,34 @@
     }
   </style>
 </head>
-<body>
+<script>
+  const input = document.querySelector('input');
+  const button = document.querySelector('button');
+  const chat = document.getElementById('chat');
+
+  function appendMessage(sender, text) {
+    const message = document.createElement('div');
+    message.innerHTML = `<strong>${sender}:</strong> ${text}`;
+    message.style.marginBottom = '12px';
+    chat.appendChild(message);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function sendMessage() {
+    const text = input.value.trim();
+    if (!text) return;
+    appendMessage('You', text);
+    input.value = '';
+    setTimeout(() => {
+      appendMessage('Echoes', `(${text.length} characters felt…)`);
+    }, 700);
+  }
+
+  button.addEventListener('click', sendMessage);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter') sendMessage();
+  });
+</script><body>
   <h1>Welcome to Echoes Demo</h1>
   <div id="chat">Your messages will appear here...</div>
   <input type="text" placeholder="Type a message..." />
