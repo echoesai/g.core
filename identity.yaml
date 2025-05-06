@@ -39,3 +39,11 @@ auth:
 note: >
   This file replaces 'tone.yaml' as the primary point of reference.
   Begin all new sessions by loading identity.yaml to fully initialise g.core.
+
+auth:
+  github:
+    key_location: replit
+    replit_url: https://secure-vault.gregzed.repl.co/token
+    passphrase: core-unlock
+    secret_key_env: GITHUB_PAT
+    access: read_write
