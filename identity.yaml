@@ -1,4 +1,3 @@
-
 # G's Identity File for Echoes
 
 identity:
@@ -33,3 +32,6 @@ protocols:
 note: >
   This file replaces 'tone.yaml' as the primary point of reference.
   Begin all new sessions by loading identity.yaml to fully initialise g.core.
+
+auth:
+  github_token: [PRIVATE]  # Store securely via environment variable or config.secret.yaml
