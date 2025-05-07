@@ -55,11 +55,49 @@
     button:hover {
       background-color: #3a3a3a;
     }
+
+    .response {
+      margin-top: 1.5rem;
+      max-width: 600px;
+      font-size: 1.1rem;
+      color: #ccc;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <h1>Welcome to Echoes</h1>
   <input type="text" placeholder="Ask Echoes something..." />
   <button>Send</button>
+  <div class="response" id="response"></div>
+
+  <script>
+    const button = document.querySelector("button");
+    const input = document.querySelector("input[type='text']");
+    const responseDiv = document.getElementById("response");
+
+    button.addEventListener("click", async () => {
+      const prompt = input.value.trim();
+      if (!prompt) return;
+
+      responseDiv.textContent = "thinking...";
+
+      try {
+        const res = await fetch("https://6f2c9aec-16ab-47b3-8341-423637691a8f-00-9kfcuomdsq8f.sisko.replit.dev/ask", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+        responseDiv.textContent = data.reply || "(no reply)";
+      } catch (err) {
+        console.error("Echoes error:", err);
+        responseDiv.textContent = "Something went wrong.";
+      }
+    });
+  </script>
 </body>
 </html>
