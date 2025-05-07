@@ -83,12 +83,12 @@
       responseDiv.textContent = "thinking...";
 
       try {
-        const res = await fetch("https://6f2c9aec-16ab-47b3-8341-423637691a8f-00-9kfcuomdsq8f.sisko.replit.dev/ask", {
+        const res = await fetch("https://secure-vault.gregzed.repl.co/ask", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify({ prompt })
+          body: JSON.stringify({ prompt: input })
         });
 
         const data = await res.json();
